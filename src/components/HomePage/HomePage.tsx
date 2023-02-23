@@ -20,7 +20,7 @@ export default function HomePage() {
         })
     }
     useEffect(() => {
-        const socket = io('http://localhost:3001')
+        const socket = io(process.env.REACT_APP_SERVER_URL!)
         setSocket(socket)
     }, [])
     console.log(listMessages)
