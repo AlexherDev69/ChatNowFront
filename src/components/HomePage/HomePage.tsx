@@ -27,7 +27,7 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div className="bg-[#3d393e] h-screen">
+        <div className="bg-[#3d393e] max-h-full">
             <div className="homepage-header">
                 <Header activeChaton={activeChaton} 
                         setActiveChaton={setActiveChaton}

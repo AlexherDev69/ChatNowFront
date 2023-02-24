@@ -13,7 +13,7 @@ export default function Chat(props: ChatProps) {
     return (
         <div>
             <div>
-                <ChatList listMessages={props.listMessages} />
+                <ChatList listMessages={props.listMessages} username={props.username} />
             </div>
             <div>
                 <ChatSend socket={props.socket} activeChaton={props.activeChaton} username={props.username} />

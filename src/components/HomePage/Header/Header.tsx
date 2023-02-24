@@ -36,7 +36,7 @@ export default function Header(props:HeaderProps) {
                     <img className="w-10" src="img/logo.png" alt="logo" />
                 </div>
                 <div className="nav-username flex-1">
-                    <input className='bg-[#59535a] text-white' defaultValue={props.username} onChange={handleChangeUsername}></input>
+                    <input className='bg-[#59535a] text-white text-center' defaultValue={props.username} onChange={handleChangeUsername}></input>
                     {/* <h1 className="font-bold text-3xl text-center pt-1">AGOUHA</h1> */}
                 </div>
                 <div className="nav-settings flex-1 justify-end flex-row">

@@ -7,6 +7,7 @@ export interface Message {
 }
 interface ChatListProps {
     listMessages: Message[]
+    username: string
 }
 
 export default function ChatList(props: ChatListProps) {
@@ -17,7 +18,7 @@ export default function ChatList(props: ChatListProps) {
                     <div className="ml-2 text-[#e8e8e8]">
                         <p>{msg.pseudo}</p>
                     </div>
-                    <div className="border p-2 pr-4 mb-1 rounded-3xl text-white bg-[#50248d] flex items-center">
+                    <div className={`border p-2 pr-4 mb-1 rounded-3xl text-white bg-[#50248d] flex items-center ${props.username === msg.pseudo ? 'bg-black' : ''}`}>
                         <img className="rounded-full h-7 w-7 mr-2" src={`img/${msg.img}`} alt="profil" />
                         <p>{msg.message}</p>
                     </div>
