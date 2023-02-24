@@ -14,7 +14,13 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
 
     const sendMessageHandler = () => {
         socket.emit('message', JSON.stringify({ img: activeChaton, pseudo: username, message: msg }))
-        setMsg("");
+        setMsg('')
+    }
+
+    const handleEnterKeyPress = (e: any) => {
+        if (e.key === 'Enter') {
+            sendMessageHandler()
+        }
     }
     return (
         <div className="flex flex-row items-center p-2">
@@ -26,6 +32,7 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
                         placeholder="Type your message...."
                         value={msg}
                         onChange={messageHandler}
+                        onKeyDown={handleEnterKeyPress}
                     />
                 </div>
             </div>
