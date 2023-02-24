@@ -11,13 +11,11 @@ interface ChatProps {
 
 export default function Chat(props: ChatProps) {
     return (
-        <div>
-            <div>
+        <>
+            <div className="flex-col grow overflow-y-auto p-2">
                 <ChatList listMessages={props.listMessages} username={props.username} />
             </div>
-            <div>
-                <ChatSend socket={props.socket} activeChaton={props.activeChaton} username={props.username} />
-            </div>
-        </div>
+            <ChatSend socket={props.socket} activeChaton={props.activeChaton} username={props.username} />
+        </>
     )
 }

@@ -22,6 +22,7 @@ export default function HomePage() {
         })
     }
     useEffect(() => {
+        setListMessages([])
         const socket = io(process.env.REACT_APP_SOCKET_URL!, {
             transports: ['websocket'],
             secure: true,
@@ -31,16 +32,14 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div className="bg-[#3d393e] max-h-full">
-            <div className="homepage-header">
-                <Header activeChaton={activeChaton}
-                    setActiveChaton={setActiveChaton}
-                    username={username}
-                    setUsername={setUsername} />
-            </div>
-            <div>
-                <Chat socket={socket} listMessages={listMessages} activeChaton={activeChaton} username={username} />
-            </div>
+        <div className="bg-[#3d393e] h-screen flex flex-col overflow-hidden">
+            <Header
+                activeChaton={activeChaton}
+                setActiveChaton={setActiveChaton}
+                username={username}
+                setUsername={setUsername}
+            />
+            <Chat socket={socket} listMessages={listMessages} activeChaton={activeChaton} username={username} />
         </div>
     )
 }
