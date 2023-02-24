@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
 import { BsThreeDots } from 'react-icons/bs'
+
+const listChatons = ['cat1.jpg', 'cat2.jpg', 'cat3.jpg', 'cat4.jpg']
+
 interface HeaderProps{
   activeChaton: string;
   setActiveChaton: (activeChaton:string)=>void;
@@ -9,7 +12,6 @@ interface HeaderProps{
 }
 export default function Header(props:HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-    const [listChatons, setListChatons] = useState(['cat1.jpg', 'cat2.jpg', 'cat3.jpg', 'cat4.jpg'])
     
 
     function handleMenuClick() {
