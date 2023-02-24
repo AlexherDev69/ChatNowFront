@@ -1,24 +1,30 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  build:
-    runs-on: self-hosted
+    build:
+        runs-on: self-hosted
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Pull the project
-        run: git pull
+            - name: Pull the project
+              run: git pull
 
-      - name: Build the project
-        run: npm run build
+            - name: Create the .env file
+              run: |
+                  touch .env
+                  echo REACT_APP_SERVER_URL="https://51.91.79.44:443"
+                  cat .env
+
+            - name: Build the project
+              run: npm run build
