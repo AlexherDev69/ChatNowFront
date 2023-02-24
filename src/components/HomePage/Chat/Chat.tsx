@@ -5,6 +5,8 @@ import ChatSend from './ChatSend/ChatSend'
 interface ChatProps {
     socket: any
     listMessages: Message[]
+    activeChaton: string
+    username: string
 }
 
 export default function Chat(props: ChatProps) {
@@ -14,7 +16,7 @@ export default function Chat(props: ChatProps) {
                 <ChatList listMessages={props.listMessages} />
             </div>
             <div>
-                <ChatSend socket={props.socket} />
+                <ChatSend socket={props.socket} activeChaton={props.activeChaton} username={props.username} />
             </div>
         </div>
     )

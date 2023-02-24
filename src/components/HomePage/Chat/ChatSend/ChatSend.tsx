@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 interface chatSendprops {
     socket: any
+    activeChaton: string
+    username: string
 }
 
-export default function ChatSend({ socket }: chatSendprops) {
+export default function ChatSend({ socket, activeChaton, username }: chatSendprops) {
     const [msg, setMsg] = useState<string>('')
 
     const messageHandler = (e: any) => {
@@ -11,7 +13,8 @@ export default function ChatSend({ socket }: chatSendprops) {
     }
 
     const sendMessageHandler = () => {
-        socket.emit('message', JSON.stringify({ img: 'cat3.jpg', pseudo: 'haxino', message: msg }))
+        console.log(username)
+        socket.emit('message', JSON.stringify({ img: activeChaton, pseudo: username, message: msg }))
     }
     return (
         <div className="flex flex-row items-center p-2">
