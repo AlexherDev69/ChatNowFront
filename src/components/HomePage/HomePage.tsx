@@ -9,7 +9,7 @@ export default function HomePage() {
     const [socket, setSocket] = useState<any>(null)
 
     const refreshData = (data: any) => {
-        setListMessages([...listMessages, ...data])
+        setListMessages([...data, ...listMessages])
     }
     if (socket) {
         socket.on('init-data', (data: any) => {
@@ -23,7 +23,7 @@ export default function HomePage() {
         const socket = io(process.env.REACT_APP_SERVER_URL!)
         setSocket(socket)
     }, [])
-    console.log(listMessages)
+
     return (
         <div className="bg-[#3d393e] h-screen">
             <div className="homepage-header">
