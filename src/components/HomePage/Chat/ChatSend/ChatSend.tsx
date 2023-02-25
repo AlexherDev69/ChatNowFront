@@ -23,7 +23,7 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
         }
     }
     return (
-        <div className="flex flex-row items-center p-2">
+        <div className="h-14 flex flex-row items-center p-2">
             <div className="flex flex-row items-center w-full border rounded-3xl h-12 px-2">
                 <div className="w-full">
                     <input

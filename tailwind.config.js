@@ -3,7 +3,7 @@ module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
-      'sans': ['Bebas Neue', 'system-ui'],
+      'sans': ['Rubik', 'system-ui'],
       'serif': ['ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
       'display': ['Oswald'],
