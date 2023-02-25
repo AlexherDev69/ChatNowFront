@@ -12,16 +12,15 @@ interface ChatListProps {
 
 export default function ChatList(props: ChatListProps) {
     return (
-        <div className="p-2 flex-col items-start">
+        <div className="overflow-y-scroll p-2">
             {props.listMessages.map((msg, i) => (
-                <div key={i} className="">
+                <div key={i}>
                     <div className="ml-2 text-[#e8e8e8]">
                         <p>{msg.pseudo}</p>
                     </div>
                     <div
-                        className={`border p-2 pr-4 mb-1 rounded-3xl text-white bg-[#50248d] flex items-center ${
-                            props.username === msg.pseudo ? 'bg-black' : ''
-                        }`}
+                        className={`border p-2 pr-4 mb-1 rounded-3xl text-white bg-[#50248d] flex items-center ${props.username === msg.pseudo ? 'bg-black' : ''
+                            }`}
                     >
                         <img className="rounded-full h-7 w-7 mr-2" src={`img/${msg.img}`} alt="profil" />
                         <p>{msg.message}</p>

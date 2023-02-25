@@ -32,7 +32,7 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div className="bg-[#3d393e] h-screen flex flex-col overflow-hidden">
+        <div className="bg-[#3d393e] h-screen flex flex-col overflow-hidden lg:flex-row">
             <Header
                 activeChaton={activeChaton}
                 setActiveChaton={setActiveChaton}

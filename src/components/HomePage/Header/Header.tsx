@@ -30,7 +30,7 @@ export default function Header(props: HeaderProps) {
     }
 
     return (
-        <div className="text-white flex-col flex-1">
+        <div className="text-white flex flex-col flex-1 lg:order-3">
             <div className="nav flex justify-between items-center px-3">
                 <div className="nav-logo flex-1">
                     <img className="w-10" src="img/logo.png" alt="logo" />
@@ -65,8 +65,7 @@ export default function Header(props: HeaderProps) {
                 )}
             </div>
 
-            <div className="border-t-4 border-b-4 border-[#59535a]">
-                <img src={`img/${props.activeChaton}`} alt="cat" />
+            <div className={`border-t-4 border-b-4 border-[#59535a] bg-center bg-cover h-[40vh] lg:flex-1`} style={{ backgroundImage: `url(/img/${props.activeChaton})` }}>
             </div>
         </div>
     )
