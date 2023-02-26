@@ -20,6 +20,9 @@ jobs:
             - name: Pull the project
               run: git pull
 
+            - name: Remove the .env file
+              run: sudo rm .env
+
             - name: Create the .env file
               run: |
                   touch .env
