@@ -20,6 +20,9 @@ jobs:
             - name: Pull the project
               run: git pull
 
+            - name: Install dependencies
+              run: npm i
+
             - name: Create the .env file
               run: |
                   touch .env
