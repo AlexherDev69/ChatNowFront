@@ -28,6 +28,12 @@ jobs:
         runs-on: self-hosted
 
         steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+
             - name: Install dependencies
               run: npm i
 
@@ -41,17 +47,31 @@ jobs:
         name: Create .env file
         runs-on: self-hosted
 
-        - name: Create the .env file
-          run: |
-              touch .env
-              echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
-              echo REACT_APP_SERVER_URL="https://www.chattyroom.ovh/api" >> .env
-              cat .env
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Create the .env file
+              run: |
+                  touch .env
+                  echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
+                  echo REACT_APP_SERVER_URL="https://www.chattyroom.ovh/api" >> .env
+                  cat .env
 
     build:
 
         name: Build the React Project
         runs-on: self-hosted
 
-        - name: Build the project
-          run: npm run build
+        steps: 
+          - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Build the project
+              run: npm run build
