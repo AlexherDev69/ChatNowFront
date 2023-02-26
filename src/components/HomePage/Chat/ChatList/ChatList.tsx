@@ -1,4 +1,3 @@
-import React from 'react'
 export interface Message {
     img: string
     pseudo: string
@@ -11,6 +10,7 @@ interface ChatListProps {
 }
 
 export default function ChatList(props: ChatListProps) {
+
     return (
         <div className="overflow-y-scroll p-2">
             {props.listMessages.map((msg, i) => (
@@ -19,11 +19,11 @@ export default function ChatList(props: ChatListProps) {
                         <p>{msg.pseudo}</p>
                     </div>
                     <div
-                        className={`border p-2 pr-4 mb-1 rounded-3xl text-white bg-[#50248d] flex items-center ${props.username === msg.pseudo ? 'bg-black' : ''
+                        className={`border p-2 pr-4 mb-1 rounded-3xl text-white flex items-center ${props.username === msg.pseudo ? 'bg-black' : 'bg-[#50248d]'
                             }`}
                     >
                         <img className="rounded-full h-7 w-7 mr-2" src={`img/${msg.img}`} alt="profil" />
-                        <p>{msg.message}</p>
+                        <pre className="whitespace-pre-wrap">{msg.message}</pre>
                     </div>
                 </div>
             ))}
