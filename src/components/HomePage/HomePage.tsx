@@ -5,13 +5,52 @@ import io from 'socket.io-client'
 import { Message } from './Chat/ChatList/ChatList'
 
 export default function HomePage() {
-    const [listMessages, setListMessages] = useState<Message[]>([])
-    const [socket, setSocket] = useState<any>(null)
     const [activeChaton, setActiveChaton] = useState<string>('cat1.jpg')
+    const [error, setError] = useState<string>("");
+    const [listMessages, setListMessages] = useState<Message[]>([])
+    const [loading, setLoading] = useState<boolean>(false);
+    const [messageQuantity, setMessageQuantity] = useState<number | null>(null);
+    const [socket, setSocket] = useState<any>(null)
     const [username, setUsername] = useState<string>('Anonymous')
 
-    const refreshData = (data: any) => {
+    const addOldMessages = (data: Message[]) => {
         setListMessages([...data, ...listMessages])
+    }
+
+    const getMoreMessages = async () => {
+        if (loading) return true;
+
+        try {
+            if (typeof messageQuantity === "number" && messageQuantity === listMessages.length) {
+                setError("Vous avez lu tous les messages");
+                return true;
+            }
+
+            setLoading(true);
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/messages?take=${10}&skip=${listMessages.length}`)
+
+            const responseParsed: {
+                messageQuantity?: number,
+                messages?: Message[],
+                message?: string,
+                ok: boolean
+            } = await response.json();
+            setLoading(false);
+
+            if (response.ok) {
+                addOldMessages(responseParsed.messages!);
+                setMessageQuantity(responseParsed.messageQuantity!);
+            } else {
+                setError(responseParsed.message!)
+            }
+        } catch (error) {
+            setLoading(false);
+            setError("Erreur de récupération des messages")
+        }
+    }
+
+    const refreshData = (data: Message[]) => {
+        setListMessages([...listMessages, ...data])
     }
     if (socket) {
         socket.on('init-data', (data: any) => {
@@ -39,7 +78,14 @@ export default function HomePage() {
                 username={username}
                 setUsername={setUsername}
             />
-            <Chat socket={socket} listMessages={listMessages} activeChaton={activeChaton} username={username} />
+            <Chat
+                error={error}
+                getMoreMessages={getMoreMessages}
+                loading={loading}
+                socket={socket}
+                listMessages={listMessages}
+                activeChaton={activeChaton}
+                username={username} />
         </div>
     )
 }

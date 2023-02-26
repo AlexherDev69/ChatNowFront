@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import Spinner from '../../../Spinner';
+
 export interface Message {
     img: string
     pseudo: string
@@ -5,14 +8,28 @@ export interface Message {
     dateCreated: string
 }
 interface ChatListProps {
-    listMessages: Message[]
-    username: string
+    error: string;
+    getMoreMessages: () => void;
+    loading: boolean;
+    listMessages: Message[];
+    username: string;
 }
 
 export default function ChatList(props: ChatListProps) {
 
+    const parentDivRef = useRef<HTMLDivElement>(null)
+
+    const handleScroll = () => {
+        // Check if the user has scrolled to the top of the div
+        if (parentDivRef.current!.scrollTop === 0) {
+            props.getMoreMessages();
+        }
+    }
+
     return (
-        <div className="overflow-y-scroll p-2">
+        <div className="overflow-y-scroll p-2 relative" onScroll={handleScroll} ref={parentDivRef}>
+            {props.loading && <Spinner className="mx-auto w-min" />}
+            {props.error && <p className="text-red-500">{props.error}</p>}
             {props.listMessages.map((msg, i) => (
                 <div key={i}>
                     <div className="ml-2 text-[#e8e8e8]">
@@ -27,6 +44,7 @@ export default function ChatList(props: ChatListProps) {
                     </div>
                 </div>
             ))}
+            <div className="absolute bottom-0"></div>
         </div>
     )
 }
