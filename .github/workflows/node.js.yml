@@ -23,6 +23,11 @@ jobs:
             - name: Install dependencies
               run: npm i
 
+            - name: Clean files
+              run: |
+                  rm -Rf .env
+                  rm -Rf build
+
             - name: Create the .env file
               run: |
                   touch .env
