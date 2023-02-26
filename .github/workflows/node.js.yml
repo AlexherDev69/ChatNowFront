@@ -8,7 +8,6 @@ on:
 
 jobs:
     update:
-
         name: Update
         runs-on: self-hosted
 
@@ -23,7 +22,6 @@ jobs:
               run: git pull
 
     cleaninstall:
-
         name: Clean Install
         runs-on: self-hosted
 
@@ -43,7 +41,6 @@ jobs:
                   rm -Rf build
 
     envfile:
-
         name: Create .env file
         runs-on: self-hosted
 
@@ -62,12 +59,11 @@ jobs:
                   cat .env
 
     build:
-
         name: Build the React Project
         runs-on: self-hosted
 
-        steps: 
-          - uses: actions/checkout@v3
+        steps:
+            - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
               with:
