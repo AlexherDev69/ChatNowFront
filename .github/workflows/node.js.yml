@@ -7,7 +7,7 @@ on:
         branches: [main]
 
 jobs:
-    update:
+    deploy:
         name: Update
         runs-on: self-hosted
 
@@ -21,56 +21,13 @@ jobs:
             - name: Pull the project
               run: git pull
 
-    cleaninstall:
-        needs: update
-        name: Clean Install
-        runs-on: self-hosted
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Install dependencies
-              run: npm i
-
-            - name: Clean files
+            - name: Clean files / install dependencies / create .env and build
               run: |
                   rm -Rf .env
                   rm -Rf build
-
-    envfile:
-        needs: [update, cleaninstall]
-        name: Create .env file
-        runs-on: self-hosted
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Create the .env file
-              run: |
+                  npm i
                   touch .env
                   echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
                   echo REACT_APP_SERVER_URL="https://www.chattyroom.ovh/api" >> .env
                   cat .env
-
-    build:
-        needs: [update, cleaninstall, envfile]
-        name: Build the React Project
-        runs-on: self-hosted
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Build the project
-              run: npm run build
+                  npm run build
