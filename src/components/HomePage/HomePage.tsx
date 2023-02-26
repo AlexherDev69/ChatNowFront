@@ -45,6 +45,7 @@ export default function HomePage() {
             }
         } catch (error) {
             setLoading(false);
+            console.error(error);
             setError("Erreur de récupération des messages")
         }
     }
