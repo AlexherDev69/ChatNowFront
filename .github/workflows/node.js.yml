@@ -7,9 +7,7 @@ on:
         branches: [main]
 
 jobs:
-    build:
-        runs-on: self-hosted
-
+    prepare:
         steps:
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
@@ -17,9 +15,12 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Pull the project
-              run: git pull
+    update:
+        - name: Pull the project
+          run: git pull
 
+    cleaninstall:
+        steps:
             - name: Install dependencies
               run: npm i
 
@@ -28,12 +29,14 @@ jobs:
                   rm -Rf .env
                   rm -Rf build
 
-            - name: Create the .env file
-              run: |
-                  touch .env
-                  echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
-                  echo REACT_APP_SERVER_URL="https://www.chattyroom.ovh/api" >> .env
-                  cat .env
+    envfile:
+        - name: Create the .env file
+          run: |
+              touch .env
+              echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
+              echo REACT_APP_SERVER_URL="https://www.chattyroom.ovh/api" >> .env
+              cat .env
 
-            - name: Build the project
-              run: npm run build
+    build:
+        - name: Build the project
+          run: npm run build
