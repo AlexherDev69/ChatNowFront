@@ -7,7 +7,11 @@ on:
         branches: [main]
 
 jobs:
-    prepare:
+    update:
+
+        name: Update
+        runs-on: self-hosted
+
         steps:
             - uses: actions/checkout@v3
             - name: Use Node.js ${{ matrix.node-version }}
@@ -15,11 +19,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-    update:
-        - name: Pull the project
-          run: git pull
+            - name: Pull the project
+              run: git pull
 
     cleaninstall:
+
+        name: Clean Install
+        runs-on: self-hosted
+
         steps:
             - name: Install dependencies
               run: npm i
@@ -30,6 +37,10 @@ jobs:
                   rm -Rf build
 
     envfile:
+
+        name: Create .env file
+        runs-on: self-hosted
+
         - name: Create the .env file
           run: |
               touch .env
@@ -38,5 +49,9 @@ jobs:
               cat .env
 
     build:
+
+        name: Build the React Project
+        runs-on: self-hosted
+
         - name: Build the project
           run: npm run build
