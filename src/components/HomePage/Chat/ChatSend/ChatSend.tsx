@@ -9,12 +9,21 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
     const [msg, setMsg] = useState<string>('')
 
     const messageHandler = (e: any) => {
+        setError(false)
         setMsg(e.target.value)
     }
 
+    const [error, setError] = useState<boolean>(false)
+
     const sendMessageHandler = () => {
-        socket.emit('message', JSON.stringify({ img: activeChaton, pseudo: username, message: msg }))
-        setMsg('')
+        const reelMsg = msg.trim()
+        if(reelMsg !== ''){
+            setError(false)
+            socket.emit('message', JSON.stringify({ img: activeChaton, pseudo: username, message: reelMsg }))
+            setMsg('')
+        } else {
+            setError(true)
+        }
     }
 
     const handleEnterKeyPress = (e: any) => {
@@ -25,15 +34,20 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
     return (
         <div className="h-14 flex flex-row items-center p-2">
             <div className="flex flex-row items-center w-full border rounded-3xl h-12 px-2">
-                <div className="w-full">
+                <div className="w-full relative">
+                    {error&&
+                    <div className="bg-red-500 text-white rounded-md py-1 px-2 absolute top-0 transform -translate-y-full">
+                       Veuillez mettre un message        
+                    </div>}
                     <input
-                        type="text"
+                        type="text" required
                         className="border border-transparent w-full focus:outline-none text-sm h-10 flex items-center bg-[#3d393e]"
                         placeholder="Type your message...."
                         value={msg}
                         onChange={messageHandler}
                         onKeyDown={handleEnterKeyPress}
                     />
+                    
                 </div>
             </div>
             <div className="ml-6">
