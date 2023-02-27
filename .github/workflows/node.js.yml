@@ -22,12 +22,11 @@ jobs:
               run: git pull
 
             - name: Clean files / install dependencies / create .env and build
+              env: 
+                REACT_APP_SOCKET_URL:wss://www.chattyroom.ovh
+                REACT_APP_SERVER_URL:https://51.91.79.44:3001
               run: |
                   rm -Rf .env
                   rm -Rf build
                   npm i
-                  touch .env
-                  echo REACT_APP_SOCKET_URL="wss://www.chattyroom.ovh" >> .env
-                  echo REACT_APP_SERVER_URL="https://51.91.79.44:3001" >> .env
-                  cat .env
                   npm run build
