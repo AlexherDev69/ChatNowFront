@@ -25,9 +25,8 @@ jobs:
             - name: Pull the project
               run: git pull
 
-            - name: Clean files / install dependencies / create .env and build
-              run: |
-                  rm -Rf .env
-                  rm -Rf build
-                  npm i
-                  npm run build
+            - name: Install dependencies
+              run: npm i
+
+            - name: Build the app
+              run: npm run build
