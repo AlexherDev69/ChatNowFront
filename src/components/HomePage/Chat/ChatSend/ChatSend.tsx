@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { UserContext } from '../../../../context/UserContext'
+
 interface chatSendprops {
     socket: any
-    activeChaton: string
-    username: string
 }
 
-export default function ChatSend({ socket, activeChaton, username }: chatSendprops) {
+export default function ChatSend({ socket }: chatSendprops) {
     const [msg, setMsg] = useState<string>('')
+    
+    const {user} = useContext(UserContext)
 
     const messageHandler = (e: any) => {
         setError(false)
@@ -19,7 +21,7 @@ export default function ChatSend({ socket, activeChaton, username }: chatSendpro
         const reelMsg = msg.trim()
         if(reelMsg !== ''){
             setError(false)
-            socket.emit('message', JSON.stringify({ img: activeChaton, pseudo: username, message: reelMsg }))
+            socket.emit('message', JSON.stringify({ img: user.image, pseudo: user.username, message: reelMsg }))
             setMsg('')
         } else {
             setError(true)

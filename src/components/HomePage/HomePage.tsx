@@ -5,14 +5,12 @@ import io from 'socket.io-client'
 import { Message } from './Chat/ChatList/ChatList'
 
 export default function HomePage() {
-    const [activeChaton, setActiveChaton] = useState<string>('cat1.jpg')
     const [error, setError] = useState<string>("");
     const [listMessages, setListMessages] = useState<Message[]>([])
     const [loading, setLoading] = useState<boolean>(false);
     const [messageQuantity, setMessageQuantity] = useState<number | null>(null);
     const [socket, setSocket] = useState<any>(null)
-    const [username, setUsername] = useState<string>('Anonymous')
-
+    
     const addOldMessages = (data: Message[]) => {
         setListMessages([...data, ...listMessages])
     }
@@ -73,20 +71,14 @@ export default function HomePage() {
 
     return (
         <div className="bg-[#3d393e] h-screen flex flex-col overflow-hidden lg:flex-row">
-            <Header
-                activeChaton={activeChaton}
-                setActiveChaton={setActiveChaton}
-                username={username}
-                setUsername={setUsername}
-            />
+            <Header/>
             <Chat
                 error={error}
                 getMoreMessages={getMoreMessages}
                 loading={loading}
                 socket={socket}
                 listMessages={listMessages}
-                activeChaton={activeChaton}
-                username={username} />
+                />
         </div>
     )
 }
