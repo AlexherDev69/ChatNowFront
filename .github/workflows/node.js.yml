@@ -7,7 +7,7 @@ on:
         branches: [main]
 
 env: 
-    REACT_APP_SOCKET_URL: wss://www.chattyroom.ovh
+    REACT_APP_SOCKET_URL: wss://51.91.79.44:3001
     REACT_APP_SERVER_URL: https://51.91.79.44:3001
 
 jobs:
