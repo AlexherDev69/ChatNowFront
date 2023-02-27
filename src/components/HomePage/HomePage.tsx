@@ -27,7 +27,6 @@ export default function HomePage() {
             }
 
             setLoading(true);
-            console.log("process.env.REACT_APP_SERVER_URL", process.env.REACT_APP_SERVER_URL);
             const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/messages?take=${10}&skip=${listMessages.length}`)
 
             const responseParsed: {
