@@ -1,5 +1,8 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState, useEffect, useLayoutEffect } from 'react'
+import { UserContext } from '../../../../context/UserContext'
 import Spinner from '../../../Spinner'
+
+
 
 export interface Message {
     img: string
@@ -12,10 +15,14 @@ interface ChatListProps {
     getMoreMessages: () => void
     loading: boolean
     listMessages: Message[]
-    username: string
 }
 
 export default function ChatList(props: ChatListProps) {
+
+    const {user} = useContext(UserContext)
+
+    const [firstMessageRender, setFirstMessageRender] = useState<boolean>(false)
+
     const parentDivRef = useRef<HTMLDivElement>(null)
 
     const handleScroll = () => {
@@ -25,6 +32,31 @@ export default function ChatList(props: ChatListProps) {
         }
     }
 
+    const scrollDown = () => {
+        const div = parentDivRef.current;
+        if (div) {
+            div?.scrollTo({ top: div?.scrollHeight ?? 0, behavior: 'smooth' });
+        }
+    }
+
+    const listMessageChanged = () =>{
+        //si un message user, on scroll en bas
+        //si un message autre user, deux comportement : si on est tout en bas, ça scroll down, si on l'est pas ça scroll down pas et on alerte l'user d'un new message
+        const lastMessage = props.listMessages[props.listMessages.length - 1];
+        if (lastMessage){
+            if(user.username === lastMessage.pseudo) {
+                scrollDown()
+            } else {
+
+            }
+        }   
+    }
+
+    useEffect(listMessageChanged, [props.listMessages])
+    useEffect(scrollDown, []);
+
+    
+    
     const [showFullMessage, setShowFullMessage] = useState<{[key: number]: boolean}>({})
 
     const MAX_MESSAGE_LENGTH = 100;
@@ -52,7 +84,7 @@ export default function ChatList(props: ChatListProps) {
                     </div>
                     <div
                         className={`border p-2 pr-4 mb-1 rounded-3xl text-white flex items-center ${
-                            props.username === msg.pseudo ? 'bg-black' : 'bg-[#50248d]'
+                            user.username === msg.pseudo ? 'bg-black' : 'bg-[#50248d]'
                         }`}
                     >
                         <img className="rounded-full h-7 w-7 mr-2" src={`img/${msg.img}`} alt="profil" />
