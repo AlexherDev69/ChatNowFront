@@ -10,7 +10,7 @@ export default function HomePage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [messageQuantity, setMessageQuantity] = useState<number | null>(null);
     const [socket, setSocket] = useState<any>(null)
-    
+
     const addOldMessages = (data: Message[]) => {
         setListMessages([...data, ...listMessages])
     }
@@ -25,7 +25,7 @@ export default function HomePage() {
             }
 
             setLoading(true);
-            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/messages?take=${10}&skip=${listMessages.length}`)
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/messages?take=${10}&skip=${listMessages.length}`)
 
             const responseParsed: {
                 messageQuantity?: number,
@@ -71,14 +71,14 @@ export default function HomePage() {
 
     return (
         <div className="bg-[#3d393e] h-screen flex flex-col overflow-hidden lg:flex-row">
-            <Header/>
+            <Header />
             <Chat
                 error={error}
                 getMoreMessages={getMoreMessages}
                 loading={loading}
                 socket={socket}
                 listMessages={listMessages}
-                />
+            />
         </div>
     )
 }

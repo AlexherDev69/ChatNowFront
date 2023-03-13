@@ -1,8 +1,6 @@
-import { useContext, useRef, useState, useEffect, useLayoutEffect } from 'react'
+import { useContext, useRef, useState, useEffect } from 'react'
 import { UserContext } from '../../../../context/UserContext'
 import Spinner from '../../../Spinner'
-
-
 
 export interface Message {
     img: string
