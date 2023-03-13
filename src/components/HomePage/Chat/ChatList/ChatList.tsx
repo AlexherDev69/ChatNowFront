@@ -19,8 +19,6 @@ export default function ChatList(props: ChatListProps) {
 
     const {user} = useContext(UserContext)
 
-    const [firstMessageRender, setFirstMessageRender] = useState<boolean>(false)
-
     const parentDivRef = useRef<HTMLDivElement>(null)
 
     const handleScroll = () => {
@@ -50,10 +48,8 @@ export default function ChatList(props: ChatListProps) {
         }   
     }
 
-    useEffect(listMessageChanged, [props.listMessages])
+    useEffect(listMessageChanged, [props.listMessages, user.username])
     useEffect(scrollDown, []);
-
-    
     
     const [showFullMessage, setShowFullMessage] = useState<{[key: number]: boolean}>({})
 
