@@ -12,7 +12,7 @@ interface ChatProps {
 export default function Chat(props: ChatProps) {
     return (
         <>
-            <div className="flex flex-col overflow-y-hidden p-2 lg:w-[30vw]">
+            <div className="flex flex-col overflow-y-hidden p-2 lg:w-[70vw]">
                 <ChatList getMoreMessages={props.getMoreMessages} error={props.error} listMessages={props.listMessages} loading={props.loading} />
                 <ChatSend socket={props.socket} />
             </div>
