@@ -7,8 +7,8 @@ interface chatSendprops {
 
 export default function ChatSend({ socket }: chatSendprops) {
     const [msg, setMsg] = useState<string>('')
-    
-    const {user} = useContext(UserContext)
+
+    const { user } = useContext(UserContext)
 
     const messageHandler = (e: any) => {
         setError(false)
@@ -19,7 +19,7 @@ export default function ChatSend({ socket }: chatSendprops) {
 
     const sendMessageHandler = () => {
         const reelMsg = msg.trim()
-        if(reelMsg !== ''){
+        if (reelMsg !== '') {
             setError(false)
             socket.emit('message', JSON.stringify({ img: user.image, pseudo: user.username, message: reelMsg }))
             setMsg('')
@@ -37,19 +37,19 @@ export default function ChatSend({ socket }: chatSendprops) {
         <div className="h-14 flex flex-row items-center p-2">
             <div className="flex flex-row items-center w-full border rounded-3xl h-12 px-2">
                 <div className="w-full relative">
-                    {error&&
-                    <div className="bg-red-500 text-white rounded-md py-1 px-2 absolute top-0 transform -translate-y-full">
-                       Veuillez mettre un message        
-                    </div>}
+                    {error &&
+                        <div className="bg-red-500 text-white rounded-md py-1 px-2 absolute top-0 transform -translate-y-full">
+                            Veuillez mettre un message
+                        </div>}
                     <input
                         type="text" required
-                        className="border border-transparent w-full focus:outline-none text-sm h-10 flex items-center bg-[#3d393e]"
+                        className="border border-transparent w-full focus:outline-none text-sm h-10 flex items-center bg-[#3d393e] text-white"
                         placeholder="Type your message...."
                         value={msg}
                         onChange={messageHandler}
                         onKeyDown={handleEnterKeyPress}
                     />
-                    
+
                 </div>
             </div>
             <div className="ml-6">
